@@ -20,6 +20,10 @@ public class JoinService {
         
         //db에 이미 동일한 username을 가진 회원이 존재하는지 검증 필요
         //UserRepository에서 특정한 커스텀 메서들를 작성해서 회원 검증 진행
+        boolean isUser = userRepository.existsByUsername(joinDTO.getUsername());
+        if (isUser) {
+            return;
+        }
 
         //유저dto를 Entity 변경
         UserEntity data = new UserEntity(); //객체
