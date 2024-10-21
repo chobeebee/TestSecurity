@@ -2,6 +2,7 @@ package com.example.TestSecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,12 +12,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity //SpringSecurity에서 관리되는 클래스로 설정
 public class SecurityConfig {
     
-    //BCrypt 엔코드를 리턴하는 메소드
+    //BCrypt 엔코드를 리턴하는 메소드 (암호화)
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
     
+    //인가
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
@@ -31,11 +33,9 @@ public class SecurityConfig {
 
         //http
                 //.csrf((auth) -> auth.disable()); //csrf(사이트 위변조 방지)설정 미사용으로 설정
+
         http
-                .formLogin((auth) -> auth.loginPage("/login")
-                        .loginProcessingUrl("/loginProc")
-                        .permitAll()
-                );
+                .httpBasic(Customizer.withDefaults());
         
         //세션 설정
         http
