@@ -29,8 +29,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated() //나머지 경로에 대한 설정
                 );
 
-        http
-                .csrf((auth) -> auth.disable()); //csrf(사이트 위변조 방지)설정 미사용으로 설정
+        //http
+                //.csrf((auth) -> auth.disable()); //csrf(사이트 위변조 방지)설정 미사용으로 설정
         http
                 .formLogin((auth) -> auth.loginPage("/login")
                         .loginProcessingUrl("/loginProc")
