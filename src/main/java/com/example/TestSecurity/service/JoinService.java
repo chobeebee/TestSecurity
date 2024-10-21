@@ -31,7 +31,7 @@ public class JoinService {
         data.setUsername(joinDTO.getUsername());
         //data.setPassword(joinDTO.getPassword()); //암호화 필요
         data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword())); //암호화
-        data.setRole("ROLE_USER"); //회원 자신이 스스로 role 설정 못하기 떄문에 service 단에서 강제로 값을 넣어야 함
+        data.setRole("ROLE_ADMIN"); //회원 자신이 스스로 role 설정 못하기 떄문에 service 단에서 강제로 값을 넣어야 함
 
         userRepository.save(data); //데이터 입력
     }
