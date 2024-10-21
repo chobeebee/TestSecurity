@@ -36,6 +36,17 @@ public class SecurityConfig {
                         .loginProcessingUrl("/loginProc")
                         .permitAll()
                 );
+        
+        //세션 설정
+        http
+                .sessionManagement((auth) -> auth
+                        .maximumSessions(1) //동시 접속 중복 로그인
+                        .maxSessionsPreventsLogin(true)); //로그인 개수를 초과했을 경우 기존에 로그인 된 것을 로그아웃 시킬 지, 새로운 로그인을 차단할 지
+
+        //세션 고정 보호
+        http
+                .sessionManagement((auth) -> auth
+                        .sessionFixation().changeSessionId()); //세션 고정 여부 체크
 
         return http.build(); //http인자를 builder 타입으로 리턴
     }
